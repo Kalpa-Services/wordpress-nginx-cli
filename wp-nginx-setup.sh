@@ -26,12 +26,85 @@ EOF
 check_and_install_nginx() {
     if ! command -v nginx >/dev/null 2>&1; then
         echo "Nginx is not installed. Installing Nginx..."
-        # Depending on your distribution, choose the correct package manager (apt, yum, etc.)
         apt update
         apt install nginx -y
     else
         echo "Nginx is already installed."
     fi
+}
+
+# Function to check and install Perl
+check_and_install_perl() {
+    if ! command -v perl >/dev/null 2>&1; then
+        echo "Perl is not installed. Installing Perl..."
+        apt install perl -y
+    else
+        echo "Perl is already installed."
+    fi
+}
+
+# Function to check and install PHP 7.4 and PHP 7.4-FPM
+check_and_install_php() {
+    if ! command -v php7.4 >/dev/null 2>&1; then
+        echo "PHP 7.4 is not installed. Installing PHP 7.4 and PHP 7.4-FPM..."
+        apt install php7.4 php7.4-fpm -y
+    else
+        echo "PHP 7.4 and PHP 7.4-FPM are already installed."
+    fi
+}
+
+# Function to create nginx config
+create_nginx_config() {
+    cat > $NGINX_AVAILABLE/$domain <<EOF
+server {
+    server_tokens off;
+    server_name $domain www.$domain;
+    root $WEB_DIR/$domain/wordpress;
+    index index.php;
+
+    location = /favicon.ico {
+        log_not_found off;
+        access_log off;
+    }
+
+    location = /robots.txt {
+        allow all;
+        log_not_found off;
+        access_log off;
+    }
+
+    location / {
+        try_files \$uri \$uri/ /index.php?\$args;
+    }
+
+    location ~ \.php\$ {
+        include fastcgi.conf;
+        fastcgi_intercept_errors on;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock; # Adjust the PHP version
+    }
+
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)\$ {
+        expires max;
+        log_not_found off;
+    }
+}
+EOF
+}
+
+# Function to install and configure WordPress
+install_wordpress() {
+    mkdir -p $WEB_DIR/$domain
+    cd $WEB_DIR/$domain
+    curl -O https://wordpress.org/latest.tar.gz
+    tar -zxvf latest.tar.gz
+    rm latest.tar.gz
+    cd wordpress
+    mv wp-config-sample.php wp-config.php
+
+    perl -i -pe "s/database_name_here/$dbname/g" wp-config.php
+    perl -i -pe "s/username_here/$dbuser/g" wp-config.php
+    perl -i -pe "s/password_here/$dbpass/g" wp-config.php
+    perl -i -pe "s/localhost/$dbhost/g" wp-config.php
 }
 
 # Parse command-line options
@@ -61,15 +134,21 @@ done
 # Check if script is run as root
 [ "$(id -u)" != "0" ] && { echo "This script must be run as root."; exit 1; }
 
-# Check and install Nginx
+# Check and install dependencies
 check_and_install_nginx
+check_and_install_perl
+check_and_install_php
 
-# Main script execution
+# Execute functions
 create_nginx_config
 install_wordpress
+
+# Set permissions and create symlink
 chown -R $WEB_USER $WEB_DIR/$domain
 chmod -R 775 $WEB_DIR/$domain
 ln -s $NGINX_AVAILABLE/$domain $NGINX_ENABLED/$domain
+
+# Restart Nginx to apply changes
 systemctl restart nginx
 
 echo "WordPress installation and Nginx setup for $domain complete."
