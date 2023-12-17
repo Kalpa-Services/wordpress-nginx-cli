@@ -43,8 +43,6 @@ The script accepts the following arguments:
 
 Example usage:
 
-bashCopy code
-
 `sudo ./wp_nginx_setup.sh -d example.com -u wordpressuser -p password -n wordpressdb -H localhost`
 
 Features
