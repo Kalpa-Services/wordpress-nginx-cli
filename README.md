@@ -17,7 +17,9 @@ Installation
 
 2.  Download the Script: You can download the script using `wget` or `curl`. For example:
 
-    `wget https://github.com/Kalpa-Services/wordpress-nginx-cli.git`
+    `wget https://kalpaservices.fra1.cdn.digitaloceanspaces.com/wp-nginx-setup.sh`
+
+     `curl -O https://kalpaservices.fra1.cdn.digitaloceanspaces.com/wp-nginx-setup.sh`
 
 3.  Make the Script Executable: Change the script's permissions to make it executable:
 
