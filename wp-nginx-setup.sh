@@ -22,6 +22,12 @@ This script installs WordPress and sets up an Nginx server block.
 EOF
 }
 
+# Check if no arguments were provided
+if [ $# -eq 0 ]; then
+    show_help
+    exit 1
+fi
+
 # Function to check and install Nginx
 check_and_install_nginx() {
     if ! command -v nginx >/dev/null 2>&1; then
@@ -155,4 +161,4 @@ ln -s $NGINX_AVAILABLE/$domain $NGINX_ENABLED/$domain
 # Restart Nginx to apply changes
 systemctl restart nginx
 
-echo "WordPress installation and Nginx setup for $domain complete."
+echo -e "\033[32mWordPress installation and Nginx setup for $domain complete.\033[0m"
