@@ -28,8 +28,6 @@ Installation
 
 4.  Run the Script: Execute the script with root privileges. You will need to provide details like your domain, database user, password, etc.:
 
-    bashCopy code
-
     `sudo ./wp-nginx-setup.sh -d yourdomain.com -u dbuser -p dbpass -n dbname -H dbhost`
 
 Usage
