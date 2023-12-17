@@ -93,8 +93,12 @@ EOF
 
 # Function to install and configure WordPress
 install_wordpress() {
-    mkdir -p $WEB_DIR/$domain
+    if [ ! -d "$WEB_DIR/$domain" ]; then
+        echo "Creating web directory for $domain..."
+        mkdir -p $WEB_DIR/$domain
+    fi
     cd $WEB_DIR/$domain
+    echo "Downloading WordPress..."
     curl -O https://wordpress.org/latest.tar.gz
     tar -zxvf latest.tar.gz
     rm latest.tar.gz
