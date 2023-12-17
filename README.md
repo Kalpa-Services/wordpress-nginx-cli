@@ -48,7 +48,7 @@ Example usage:
 Features
 --------
 
--   Checks for the presence of Nginx and installs it if not found.
+-   Checks for the presence of Nginx, Perl, PHP 7.4, and PHP 7.4-FPM, and installs them if not found.
 -   Sets up an Nginx server block for the specified domain.
 -   Installs the latest version of WordPress.
 -   Configures WordPress with the provided database details.
