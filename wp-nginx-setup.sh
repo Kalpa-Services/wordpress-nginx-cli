@@ -141,8 +141,15 @@ while getopts "hd:u:p:n:H:" opt; do
     esac
 done
 
+# Check if all required parameters are provided
+if [ -z "$domain" ] || [ -z "$dbuser" ] || [ -z "$dbpass" ] || [ -z "$dbname" ] || [ -z "$dbhost" ]; then
+    echo -e "\033[31mError: All parameters are required.\033[0m"
+    show_help
+    exit 1
+fi
+
 # Check if script is run as root
-[ "$(id -u)" != "0" ] && { echo "This script must be run as root."; exit 1; }
+[ "$(id -u)" != "0" ] && { echo -e "\033[0mThis script must be run as root.\033[0m"; exit 1; }
 
 # Check and install dependencies
 check_and_install_nginx
