@@ -49,13 +49,13 @@ check_and_install_perl() {
     fi
 }
 
-# Function to check and install PHP 7.4 and PHP 7.4-FPM
+# Function to check and install PHP 8.2 and PHP 8.2-FPM
 check_and_install_php() {
-    if ! command -v php7.4 >/dev/null 2>&1; then
-        echo "PHP 7.4 is not installed. Installing PHP 7.4 and PHP 7.4-FPM..."
-        apt install php7.4 php7.4-fpm -y
+    if ! command -v php8.2 >/dev/null 2>&1; then
+        echo "PHP 8.2 is not installed. Installing PHP 8.2 and PHP 8.2-FPM..."
+        apt install php8.2 php8.2-fpm -y
     else
-        echo "PHP 7.4 and PHP 7.4-FPM are already installed."
+        echo "PHP 8.2 and PHP 8.2-FPM are already installed."
     fi
 }
 
@@ -86,7 +86,7 @@ server {
     location ~ \.php\$ {
         include fastcgi.conf;
         fastcgi_intercept_errors on;
-        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock; # Adjust the PHP version
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock; # Adjust the PHP version
     }
 
     location ~* \.(js|css|png|jpg|jpeg|gif|ico)\$ {
