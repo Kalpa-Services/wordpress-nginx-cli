@@ -90,7 +90,7 @@ server {
     location ~ \.php\$ {
         include fastcgi.conf;
         fastcgi_intercept_errors on;
-        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock; # Adjust the PHP version
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
     }
 
     location ~* \.(js|css|png|jpg|jpeg|gif|ico)\$ {
