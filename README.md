@@ -15,20 +15,13 @@ Installation
 
 1.  Log in to Your Server: Ensure you are logged into your Ubuntu server via SSH.
 
-2.  Download the Script: You can download the script using `wget` or `curl`. For example:
+2.  Download the Script: You can download the script using `curl`. For example:
 
-    `wget https://kalpaservices.fra1.cdn.digitaloceanspaces.com/wp-nginx-setup.sh`
+     `curl -fsSL https://kalpaservices.fra1.cdn.digitaloceanspaces.com/install.sh | sh -`
 
-     `curl -O https://kalpaservices.fra1.cdn.digitaloceanspaces.com/wp-nginx-setup.sh`
+3.  Run the Script: Execute the script with root privileges. You will need to provide details like your domain, database user, password, etc.:
 
-3.  Make the Script Executable: Change the script's permissions to make it executable:
-
-
-    `chmod +x wp-nginx-setup.sh`
-
-4.  Run the Script: Execute the script with root privileges. You will need to provide details like your domain, database user, password, etc.:
-
-    `sudo ./wp-nginx-setup.sh -d yourdomain.com -u dbuser -p dbpass -n dbname -H dbhost`
+    `sudo wp-nginx-setup -d yourdomain.com -u dbuser -p dbpass -n dbname -H dbhost`
 
 Usage
 -----
@@ -43,11 +36,11 @@ The script accepts the following arguments:
 
 Example usage:
 
-`sudo ./wp-nginx-setup.sh -d example.com -u wordpressuser -p password -n wordpressdb -H localhost`
+`sudo wp-nginx-setup -d example.com -u wordpressuser -p password -n wordpressdb -H localhost`
 
 If you're using a managed database service for example Digital Ocean that does not use the default `3306` port for MySQL, append your port to the DB Host. For example:
 
-`sudo ./wp-nginx-setup.sh -d example.com -u wordpressuser -p password -n wordpressdb -H managedb:25062`
+`sudo wp-nginx-setup -d example.com -u wordpressuser -p password -n wordpressdb -H managedb:25062`
 
 Features
 --------
