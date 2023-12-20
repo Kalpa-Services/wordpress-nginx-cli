@@ -1,10 +1,10 @@
 #!/bin/bash
 
-SCRIPT_URL="https://kalpaservices.fra1.cdn.digitaloceanspaces.com/wp-nginx-setup.sh"
+SCRIPT_URL="https://kalpaservices.fra1.cdn.digitaloceanspaces.com/wpnix.sh"
 
 
 INSTALL_DIR="/usr/local/bin"
-SCRIPT_NAME="wp-nginx-setup"
+SCRIPT_NAME="wpnix"
 
 # Download the main script
 echo "Downloading the script..."

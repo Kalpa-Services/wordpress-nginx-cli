@@ -21,7 +21,7 @@ Installation
 
 3.  Run the Script: Execute the script with root privileges. You will need to provide details like your domain, database user, password, etc.:
 
-    `sudo wp-nginx-setup -d yourdomain.com -u dbuser -p dbpass -n dbname -H dbhost`
+    `sudo wpnix -d yourdomain.com -u dbuser -p dbpass -n dbname -H dbhost`
 
 Usage
 -----
@@ -36,11 +36,11 @@ The script accepts the following arguments:
 
 Example usage:
 
-`sudo wp-nginx-setup -d example.com -u wordpressuser -p password -n wordpressdb -H localhost`
+`sudo wpnix -d example.com -u wordpressuser -p password -n wordpressdb -H localhost`
 
 If you're using a managed database service for example Digital Ocean that does not use the default `3306` port for MySQL, append your port to the DB Host. For example:
 
-`sudo wp-nginx-setup -d example.com -u wordpressuser -p password -n wordpressdb -H managedb:25062`
+`sudo wpnix -d example.com -u wordpressuser -p password -n wordpressdb -H managedb:25062`
 
 Features
 --------
