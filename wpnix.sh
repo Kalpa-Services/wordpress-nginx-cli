@@ -121,6 +121,27 @@ install_wordpress() {
     perl -i -pe "s/localhost/$dbhost/g" wp-config.php
 }
 
+# Function to check and install Certbot using Snap
+check_and_install_certbot() {
+    if ! command -v certbot >/dev/null 2>&1; then
+        echo "Certbot is not installed. Installing Certbot using Snap..."
+        apt update
+        apt install snapd -y
+        snap install core
+        snap refresh core
+        snap install --classic certbot
+        ln -s /snap/bin/certbot /usr/bin/certbot
+    else
+        echo "Certbot is already installed."
+    fi
+}
+
+# Function to configure Let's Encrypt SSL for the domain
+configure_lets_encrypt_ssl() {
+    echo "Configuring Let's Encrypt SSL for $domain..."
+    certbot --nginx -d $domain -d www.$domain
+}
+
 # Parse command-line options
 while getopts "hd:u:p:n:H:" opt; do
     case $opt in
@@ -163,6 +184,8 @@ check_and_install_php
 # Execute functions
 create_nginx_config
 install_wordpress
+check_and_install_certbot
+configure_lets_encrypt_ssl
 
 # Set permissions and create symlink
 chown -R $WEB_USER $WEB_DIR/$domain
