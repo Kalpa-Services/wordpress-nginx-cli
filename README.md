@@ -1,3 +1,9 @@
+# NOTICE
+
+This script is stable and will not be maintained. Please use [WPNIX2](https://github.com/Kalpa-Services/wpnix2) for all the latest updates.
+
+
+
 WordPress and Nginx Setup Script
 ================================
 
